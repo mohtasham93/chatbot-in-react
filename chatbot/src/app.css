@@ -1,0 +1,287 @@
+/* ================= GLOBAL ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #0a0c10;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+  padding: 1rem;
+}
+
+/* ========= ULTRA BACKGROUND LAYERS ========= */
+body::before,
+body::after {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  z-index: -2;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 10%, transparent 70%);
+  animation: rotateField 50s linear infinite;
+}
+
+body::after {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 5%, transparent 60%);
+  animation-direction: reverse;
+  opacity: 0.6;
+}
+
+@keyframes rotateField {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.05); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* PARALLAX GRADIENT SWEEP */
+body::before {
+  background: conic-gradient(
+    from 0deg,
+    rgba(75, 0, 130, 0.2),
+    rgba(0, 191, 255, 0.15),
+    rgba(255, 105, 180, 0.2),
+    rgba(0, 0, 0, 0.3)
+  );
+  animation: gradientSweep 25s ease-in-out infinite;
+}
+
+@keyframes gradientSweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ================= HERO H1 ================= */
+h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #00e1ff, #ff00ff);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  animation: heroFade 1s ease forwards, heroFloat 5s ease-in-out infinite;
+}
+
+@keyframes heroFade {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ================= LOGIN FORM ================= */
+form {
+  width: 400px;
+  max-width: 90%;
+  padding: 2rem;
+  background: rgba(20, 20, 20, 0.7);
+  backdrop-filter: blur(15px);
+  border-radius: 1rem;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+  animation: formDrop 0.8s ease forwards;
+}
+
+@keyframes formDrop {
+  0% { transform: translateY(-50px) scale(0.95); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"] {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+  border-color: #00e1ff;
+  box-shadow: 0 4px 10px rgba(0, 225, 255, 0.25);
+  transform: scale(1.02);
+}
+
+#input {
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+button[type="submit"] {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, #00e1ff, #ff00ff);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 225, 255, 0.4);
+}
+
+/* ================= CHATBOT ================= */
+#inputResponse {
+  max-height: 300px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.8rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: fadeSlideUp 1s ease forwards;
+}
+
+.user, .bot {
+  padding: 0.7rem 1rem;
+  border-radius: 0.7rem;
+  max-width: 75%;
+  line-height: 1.4;
+  font-size: 0.95rem;
+  animation: chatBubble 0.5s ease;
+}
+
+.user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #00e1ff, #0078ff);
+  color: #fff;
+}
+
+.bot {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+@keyframes chatBubble {
+  from { opacity: 0; transform: translateY(10px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Chat Input */
+#chatbot-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: center;
+}
+
+#input {
+  flex: 1;
+  min-width: 60%;
+  padding: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+#input:focus {
+  border-color: #00e1ff;
+  box-shadow: 0 0 8px rgba(0, 225, 255, 0.3);
+}
+
+/* Chat Send Button */
+#chatbot-form button[type="submit"] {
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, #00e1ff, #0078ff);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#chatbot-form button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 225, 255, 0.4);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  form {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  #inputResponse {
+    max-height: 220px;
+  }
+
+  #input {
+    min-width: 100%;
+  }
+
+  #chatbot-form button[type="submit"] {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  form {
+    padding: 1rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  #input {
+    font-size: 0.9rem;
+    padding: 0.7rem;
+  }
+
+  button[type="submit"],
+  #chatbot-form button[type="submit"] {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+  }
+}
