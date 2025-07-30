@@ -1,23 +1,24 @@
+// App.js
 import Loginform from './components/Loginform';
 import Chatbot from './components/Chatbot';
 import { useState } from 'react';
 import './app.css';
-
+import UserContext from './UserContext';
 
 function App() {
-   
- const [Isloginned , setisloginned] = useState(false)
-const [userdetail , setuserdetail] = useState("")
-   
-  
-     
-  return (
-    <div >
-      {Isloginned ===false?<Loginform setisloginned={setisloginned}/>: <Chatbot setisloginned={setisloginned}/> }
+  const [isLoginned, setIsLoginned] = useState(false);
+  const [userDetail, setUserDetail] = useState({ email: '', username: '' });
 
-     
-    
-    </div>
+  return (
+    <UserContext.Provider value={userDetail}>
+      <div>
+        {!isLoginned ? (
+          <Loginform setisloginned={setIsLoginned} setuserdetail={setUserDetail} />
+        ) : (
+          <Chatbot setisloginned={setIsLoginned} />
+        )}
+      </div>
+    </UserContext.Provider>
   );
 }
 

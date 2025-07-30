@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import Navbar from './Navbar';
+import UserContext from '../UserContext';
+import { NavLink } from 'react-router-dom';
 
-
-const Chatbot = ({setisloginned}) => {
+const Chatbot = ({ setisloginned }) => {
+  const { email, username } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
 
@@ -10,7 +13,6 @@ const Chatbot = ({setisloginned}) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
 
-    // Add user message
     setMessages((prev) => [...prev, { text: inputValue, sender: 'user' }]);
 
     try {
@@ -19,9 +21,7 @@ const Chatbot = ({setisloginned}) => {
         {
           contents: [
             {
-              parts: [
-                { text: inputValue }
-              ]
+              parts: [{ text: inputValue }]
             }
           ]
         },
@@ -41,16 +41,14 @@ const Chatbot = ({setisloginned}) => {
 
     setInputValue('');
   };
+
   function logout() {
-        setisloginned(false)
+    setisloginned(false);
   }
 
   return (
- 
     <div>
-
-
-        
+      <Navbar email={email} username={username} />
       <h1>Welcome to ChatBot</h1>
       <div id="inputResponse">
         {messages.map((msg, index) => (
@@ -59,6 +57,7 @@ const Chatbot = ({setisloginned}) => {
           </div>
         ))}
       </div>
+
       <form onSubmit={handleSubmit}>
         <input
           type="search"
@@ -68,8 +67,12 @@ const Chatbot = ({setisloginned}) => {
           onChange={(e) => setInputValue(e.target.value)}
         />
         <button type="submit">Send</button>
-           <button type="submit" onClick={logout} >logout</button>
+        <button type="submit" onClick={logout} className='logout-button'>Log Out</button>
       </form>
+
+      <NavLink to="/contactus">
+        <button type='submit' className="nav-button">Go to Weather App</button>
+      </NavLink>
     </div>
   );
 };
